@@ -1,0 +1,14 @@
+== gaeotest
+                                                                                                                                                                                                                 
+Author: Tomas Holas <tomas.holas@gmail.com>                                                                                                                                                     
+                                                                                                                                                                                                                 
+== About                                                                                                                                                                                                         
+                                                                                                                                                                                                                 
+This is a testing project for GAEO (Google App Engine Oil) - a project, which aims to make the Google's webapp framework more rails-like. It's goal is to help GAEO users to learn how to work with GAEO and test it's features easily. Functionality suggestions are very welcome. To see this toy in action, go to http://gaeotest.appspot.com                                                                                                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                 
+== License                                                                                                                                                                                                       
+                                                                                                                                                                                                                 
+gaeotest, like gaeo, is under Apache License 2.0. http://www.apache.org/licenses/LICENSE-2.0                                                                                                                                     
+
+
+

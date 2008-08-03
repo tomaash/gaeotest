@@ -7,7 +7,7 @@ class Proxy(object):
             self.__setattr__(key,user_data[key])
 
 class User(BaseModel): 
-    first_name = db.StringProperty(required=False)
-    last_name = db.StringProperty(required=False)
-    password = db.StringProperty(required=False)
-    email = db.EmailProperty(required=False)
+    first_name = db.StringProperty()
+    last_name = db.StringProperty()
+    password = db.StringProperty()
+    email = db.EmailProperty()
