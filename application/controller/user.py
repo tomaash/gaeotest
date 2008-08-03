@@ -4,7 +4,7 @@ from model.core import *
 class UserController(BaseController):
     def index(self):
         self.users = User.all().fetch(100)
-        self.message = 'hellokity'
+        self.message = 'Welcome!'
 
     def new(self):
         pass        
@@ -20,18 +20,20 @@ class UserController(BaseController):
         try:
             User().update_attributes(self.params['user'])
             self.redirect('/user')            
-        except:            
+        except Exception, error_text:            
             proxy_user=Proxy(self.params['user'])
             self.render(template = 'new', values = { 
-            'user': proxy_user })
+            'user': proxy_user,
+            'message': error_text })
 
     def update(self):
         try:
             User.get(self.params['id']).update_attributes(self.params['user'])
             self.redirect('/user')
-        except:
+        except Exception, error_text:
             self.params['user']['key']=self.params['id']
             proxy_user=Proxy(self.params['user'])
             self.render(template = 'edit', values = { 
-            'user': proxy_user })
+            'user': proxy_user,
+            'message': error_text })
         
