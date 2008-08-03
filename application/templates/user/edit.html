@@ -1,0 +1,9 @@
+{% extends "new.html" %}
+
+{% block heading %}
+<h1> Editing User {{ user.first_name }}</h1>
+{% endblock %}
+
+{% block form_tag %}
+<form action="/user/update/{{ user.key }}" method='post'>
+{% endblock %}

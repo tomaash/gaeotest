@@ -1,0 +1,22 @@
+{% extends "../layouts/main.html" %}
+{{ message }}
+{% block title %} New User {% endblock %}
+{% block content %}
+{% block heading %}
+<h1>New User</h1>
+{% endblock %}
+{% block form_tag %}
+<form action="/user/create" method='post'>
+{% endblock %}
+  <p>First Name</p>
+  <p><input name="user[first_name]" type="text" value="{{ user.first_name }}" /></p>
+  <p>Last Name</p>
+  <p><input name="user[last_name]" type="text" value="{{ user.last_name }}" /></p>
+  <p>Email</p>
+  <p><input name="user[email]" type="text" value="{{ user.email }}" /></p>
+  <p>Password</p>
+  <p><input name="user[password]" type="text" value="{{ user.password }}" /></p>
+  <p><input name="save" type="submit" value="Save" /></p>
+</form>
+
+{% endblock %}

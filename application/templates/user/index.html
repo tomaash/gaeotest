@@ -1,0 +1,30 @@
+{% extends "../layouts/main.html" %}
+<h1>UserController#index</h1>
+
+{% block title %} Users {% endblock %}
+
+{% block content %}
+{{ message }}
+<h2>Listing Users</h2>
+<table>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+    <th>Password</th>
+    
+  </tr>
+  {% for user in users %}
+  <tr>
+    <td>{{ user.first_name }}</td>
+    <td>{{ user.last_name}}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ user.password }}</td>
+    <td><a href="/user/edit/{{ user.key }}">edit</a></td>
+    <td><a href="/user/delete/{{ user.key }}">delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+<br/>
+<a href="/user/new">New User</a>
+{% endblock %}
