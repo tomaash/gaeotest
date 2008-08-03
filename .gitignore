@@ -1,0 +1,6 @@
+log/*.log
+tmp/**/*
+*.pyc
+.DS_Store
+tmtags
+.dotest
