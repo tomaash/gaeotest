@@ -1,0 +1,20 @@
+{% extends "../layouts/main.html" %}
+{{ message }}
+{% block title %} New Contact {% endblock %}
+{% block content %}
+{{ message }}
+{{ error }}
+{% block heading %}
+<h1>New Contact</h1>
+{% endblock %}
+{% block form_tag %}
+<form action="/contact/create" method='post'>
+  {% endblock %}
+  <table>
+    {{ form }}
+    <tr><td>
+      <input name="save" type="submit" value="Save" />
+    </td></tr>
+  </table>
+</form>
+{% endblock %}

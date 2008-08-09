@@ -104,7 +104,7 @@ class Router:
     class __impl:
         def __init__(self):
             self.__routing_root = {
-                'controller': 'welcome',
+                'controller': 'user',
                 'action': 'index',
             }
             self.__routing_table = []

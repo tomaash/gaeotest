@@ -59,15 +59,9 @@ class BaseModel(db.Model):
                 cond_str += ' ORDER BY %s' % order_by
             cls.__dict__[name] = property(lambda self: cls.gql(cond_str))
     
-    def update_attributes(self, kwd_dict = {}, **kwds):
+    def update_attributes(self, kwds):
         """Update the specified properties"""
         need_change = False
-        
-        # if user passed a dict, merge to kwds (Issue #3)
-        if kwd_dict:
-            kwd_dict.update(kwds)
-            kwds = kwd_dict
-        
         props = self.properties()
         for prop in props.values():
             if prop.name in kwds:
@@ -78,18 +72,13 @@ class BaseModel(db.Model):
         if need_change:
             self.update()
 
-    def set_attributes(self, kwd_dict = {}, **kwds):
-        """set the specified properties, but not update"""
-        
-        # Issue #3
-        if kwd_dict:
-            kwd_dict.update(kwds)
-            kwds = kwd_dict
-        
+    def set_attributes(self, **kwds):
+        """Update the specified properties"""
         props = self.properties()
         for prop in props.values():
             if prop.name in kwds:
                 prop.__set__(self, kwds[prop.name])
+
         
     def save(self):
         self.put()

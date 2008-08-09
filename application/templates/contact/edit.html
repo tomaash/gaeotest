@@ -1,0 +1,9 @@
+{% extends "new.html" %}
+
+{% block heading %}
+<h1> Editing Contact {{ contact.name }}</h1>
+{% endblock %}
+
+{% block form_tag %}
+<form action="/contact/update/{{ contact.key }}" method='post'>
+{% endblock %}

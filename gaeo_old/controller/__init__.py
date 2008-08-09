@@ -32,6 +32,8 @@ class BaseController(object):
     """The BaseController is the base class of action controllers.
         Action controller handles the requests from clients.
     """
+
+
     def __init__(self, hnd, params = {}):
         self.hnd = hnd
         self.resp = self.response = hnd.response
@@ -83,41 +85,23 @@ class BaseController(object):
     def after_action(self):
         pass
 
-    def to_json(self, obj, **kwds):
-        """ Convert a dict to JSON. Inspired from SimpleJSON """
-        from gaeo.controller.jsonencoder import JSONEncoder
-        
-        if not kwds:
-            return JSONEncoder(skipkeys=False, ensure_ascii=True, check_circular=True,
-                allow_nan=True, indent=None, separators=None, encoding='utf-8',
-                default=None).encode(obj)
-        else:
-            return JSONEncoder(
-                skipkeys=False, ensure_ascii=True, check_circular=True,
-                allow_nan=True, indent=None, separators=None,
-                encoding='utf-8', default=None, **kwds).encode(obj)
-
-    def render(self, *html, **opt):
+    def render(self, *text, **opt):
         o = self.resp.out
         h = self.resp.headers
 
-        # check the default Content-Type is 'text/html; charset=utf-8'
-        h['Content-Type'] = 'text/html; charset=utf-8'
-        if html:
-            for h in html:
-                o.write(h.decode('utf-8'))
+        if text:
+            h['Content-Type'] = 'text/plain'
+            for t in text:
+                o.write(str(t))
         elif opt:
-            if opt.get('html'):
-                o.write(opt.get('html').decode('utf-8'))                
-            elif opt.get('text'):
-                h['Content-Type'] = 'text/plain; charset=utf-8'
-                o.write(str(opt.get('text')).decode('utf-8'))
+            if opt.get('text'):
+                o.write(str(opt.get('text')))
             elif opt.get('json'):
                 h['Content-Type'] = 'application/json; charset=utf-8'
-                o.write(opt.get('json').decode('utf-8'))
+                o.write(opt.get('json'))
             elif opt.get('xml'):
                 h['Content-Type'] = 'text/xml; charset=utf-8'
-                o.write(opt.get('xml').decode('utf-8'))
+                o.write(opt.get('xml'))
             elif opt.get('template'):
                 context = {}
                 if isinstance(opt.get('values'), dict):
@@ -127,19 +111,11 @@ class BaseController(object):
                                  opt.get('template') + '.html'),
                     context
                 ))
-            elif opt.get('template_string'):
-                context = {}
-                if isinstance(opt.get('values'), dict):
-                    context.update(opt.get('values'))
-                from django.template import Context, Template
-                t = Template(opt.get('template_string').encode('utf-8'))
-                c = Context(context)
-                o.write(t.render(c))
             else:
                 raise errors.ControllerRenderTypeError('Render type error')
         self.has_rendered = True
 
-    def redirect(self, url, perm = False):
+    def redirect(self, url, perm = True):
         self.has_rendered = True # dirty hack, make gaeo don't find the template
         self.hnd.redirect(url, perm)
 
@@ -193,9 +169,7 @@ class BaseController(object):
     def __nested_params(self,prm):
         prm2={}
         for param in prm:
-            parray = param.replace(']',"").split('[')
-            if len(parray)==1:
-                parray = parray[0].split('-')
+            parray = param.replace(']',"").split('[').split('-')
             self.__appender(prm2,parray,prm[param])
         return prm2
         

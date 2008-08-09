@@ -1,0 +1,29 @@
+{% extends "../layouts/main.html" %}
+
+{% block title %} Users {% endblock %}
+
+{% block content %}
+{{ message }}
+<h2>Listing Contacts</h2>
+<table>
+  <tr>
+    <th>Owner</th>
+    <th>Name</th>
+    <th>Birthday</th>
+    <th>Address</th>
+    
+  </tr>
+  {% for contact in contacts %}
+  <tr>
+    <td>{{ contact.owner.name }}</td>
+    <td>{{ contact.name}}</td>
+    <td>{{ contact.birth_day }}</td>
+    <td>{{ contact.address }}</td>
+    <td><a href="/contact/edit/{{ contact.key }}">edit</a></td>
+    <td><a href="/contact/delete/{{ contact.key }}">delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+<br/>
+<a href="/contact/new">New Contact</a>
+{% endblock %}
