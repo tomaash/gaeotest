@@ -1,14 +1,14 @@
 {% extends "../layouts/main.html" %}
 
-{% block title %} New Contact {% endblock %}
+{% block title %} New Group {% endblock %}
 {% block content %}
 {{ message }}
 {{ error }}
 {% block heading %}
-<h1>New Contact</h1>
+<h1>New Group</h1>
 {% endblock %}
 {% block form_tag %}
-<form action="/contact/create" method='post'>
+<form action="/group/create" method='post'>
   {% endblock %}
   <table>
     {{ form }}

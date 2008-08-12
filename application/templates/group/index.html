@@ -1,0 +1,25 @@
+{% extends "../layouts/main.html" %}
+
+{% block title %} Groups {% endblock %}
+
+{% block content %}
+{{ message }}
+<h2>Listing Groups</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    
+  </tr>
+  {% for group in groups %}
+  <tr>
+    <td>{{ group.name }}</td>
+    <td>{{ group.description }}</td>
+    <td><a href="/group/edit/{{ group.key }}">edit</a></td>
+    <td><a href="/group/delete/{{ group.key }}">delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+<br/>
+<a href="/group/new">New Group</a>
+{% endblock %}

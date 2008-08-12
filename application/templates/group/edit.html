@@ -1,0 +1,9 @@
+{% extends "new.html" %}
+
+{% block heading %}
+<h1> Editing Group {{ group.name }}</h1>
+{% endblock %}
+
+{% block form_tag %}
+<form action="/group/update/{{ group.key }}" method='post'>
+{% endblock %}

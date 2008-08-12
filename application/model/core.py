@@ -1,6 +1,6 @@
 from google.appengine.ext import db
 from gaeo.model import BaseModel
-from google.appengine.ext.db import djangoforms
+from google.appengine.ext.db.djangoforms import *
 
 class Proxy(object):
     def __init__(self,user_data):
@@ -28,6 +28,15 @@ class Group(BaseModel):
   def members(self):
     return Contact.gql("WHERE groups = :1", self.key())
 
+ROLES = (
+  # value, label
+  ('a',"role a"),
+  ('b',"role b"),
+  ('c',"role c")
+)
+
+listgroups = map(lambda x: (x.key(),x.name),Group().all().fetch(100))
+#print listgroups
 
 class Contact(BaseModel):
   # User that owns this entry.
@@ -40,16 +49,23 @@ class Contact(BaseModel):
 
   # Address info.
   address = db.PostalAddressProperty()
+  roles  = db.StringListProperty()
 
   # The original organization properties have been replaced by
   # an implicitly created property called 'companies'. 
 
   # Group affiliation
-#  groups = db.ListProperty(db.Key)
+  groups = db.ListProperty(db.Key)
 
-class ContactForm(djangoforms.ModelForm):
+class ContactForm(ModelForm):
+  roles = forms.CharField(widget=forms.CheckboxSelectMultiple(choices=ROLES))
+  groups = forms.CharField(widget=forms.CheckboxSelectMultiple(choices=listgroups))
   class Meta:
     model = Contact
+
+class GroupForm(ModelForm):
+  class Meta:
+    model = Group
 
 class Company(BaseModel):
   name = db.StringProperty()
